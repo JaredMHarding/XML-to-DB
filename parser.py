@@ -79,7 +79,7 @@ def getElementByTagNameNR(elem, tagName):
 Parses out the PCData of an xml element
 """
 def pcdata(elem):
-        return elem.toxml().replace('<'+elem.tagName+'>','').replace('</'+elem.tagName+'>','').replace('<'+elem.tagName+'/>','')
+    return elem.toxml().replace('<'+elem.tagName+'>','').replace('</'+elem.tagName+'>','').replace('<'+elem.tagName+'/>','')
 
 """
 Return the text associated with the given element (which must have type
