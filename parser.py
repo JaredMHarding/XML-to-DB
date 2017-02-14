@@ -39,7 +39,7 @@ import sys
 from xml.dom.minidom import parse
 from re import sub
 
-columnSeparator = "<>"
+columnSeparator = "|"
 
 # Dictionary of months used for date transformation
 MONTHS = {'Jan':'01','Feb':'02','Mar':'03','Apr':'04','May':'05','Jun':'06',\
@@ -220,11 +220,18 @@ def parseXml(f):
     dom = parse(f) # creates a dom object for the supplied xml file
 
     Items = dom.getElementsByTagName('Item')
-
     """
     TO DO: traverse the dom tree to extract information for your SQL tables
     """
-
+    for item in Items:
+        Bids = item.getElementsByTagName('Bid')
+        itemId = itemID(item)
+        for bid in Bids:
+            writeBid(bid, itemId)
+        writeItem(item)
+        writeCategories(item)
+        writeSeller(item)
+    writeNonSellers()
 
 
 """
