@@ -1,4 +1,9 @@
 *~
 .idea
-#*
+#bid.dat#
+#category.dat#
+#item.dat#
+#user.dat#
 *.dat
+.DS_STORE
+*.db

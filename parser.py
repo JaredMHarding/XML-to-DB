@@ -239,7 +239,6 @@ Loops through each xml files provided on the command line and passes each file
 to the parser
 """
 def main(argv):
-    print "In main"
     if len(argv) < 2:
         print >> sys.stderr, 'Usage: python skeleton_parser.py <path to xml files>'
         sys.exit(1)
