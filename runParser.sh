@@ -8,6 +8,12 @@ sort -u user.dat -o user.dat
 sort -u category.dat -o category.dat
 sort -u bid.dat -o bid.dat
 
+# remove duplicates
+#echo "$(uniq item.dat)" > item.dat
+#echo "$(uniq user.dat)" > user.dat
+#echo "$(uniq category.dat)" > category.dat
+#echo "$(uniq bid.dat)" > bid.dat
+
 # create DB
 sqlite3 Auction.db < create.sql
 

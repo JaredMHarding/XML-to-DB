@@ -170,6 +170,9 @@ def writeSeller(item):
     rating = seller.getAttribute('Rating')
     location = getElementTextByTagNameNR(item, 'Location')
     country = getElementTextByTagNameNR(item, 'Country')
+
+    if userID not in sellers:
+        sellers.append(userID)
     writeLine(user_file, [userID, rating, location, country])
 
 
@@ -178,6 +181,10 @@ def writeBid(bid, itemID):
     userID = bidder.getAttribute('UserID')
     time = transformDttm(getElementTextByTagNameNR(bid, 'Time'))
     amount = transformDollar(getElementTextByTagNameNR(bid, 'Amount'))
+
+    if userID not in sellers and not users.has_key(userID):
+        users[userID] = bidderRating(bid)
+
     writeLine(bid_file, [itemID, userID, time, amount])
 
 
@@ -205,7 +212,9 @@ def writeCategories(item):
 
 def writeNonSellers():
     for userID in users.keys():
-        writeLine(user_file, [userID, users[userID], 'NULL', 'NULL'])
+        if (userID not in sellers):
+            writeLine(user_file, [userID, users[userID], 'NULL', 'NULL'])
+
 
 
 
@@ -226,12 +235,12 @@ def parseXml(f):
     for item in Items:
         Bids = item.getElementsByTagName('Bid')
         itemId = itemID(item)
-        for bid in Bids:
-            writeBid(bid, itemId)
         writeItem(item)
         writeCategories(item)
         writeSeller(item)
-    writeNonSellers()
+        for bid in Bids:
+            writeBid(bid, itemId)
+    #writeNonSellers()
 
 
 """
