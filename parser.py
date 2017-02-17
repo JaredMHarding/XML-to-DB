@@ -171,7 +171,8 @@ def writeSeller(item):
     location = getElementTextByTagNameNR(item, 'Location')
     country = getElementTextByTagNameNR(item, 'Country')
 
-    if userID not in sellers:
+    #Making sure the userID is not in the sellers list
+    if (userID not in sellers):
         sellers.append(userID)
     writeLine(user_file, [userID, rating, location, country])
 
@@ -182,7 +183,8 @@ def writeBid(bid, itemID):
     time = transformDttm(getElementTextByTagNameNR(bid, 'Time'))
     amount = transformDollar(getElementTextByTagNameNR(bid, 'Amount'))
 
-    if userID not in sellers and not users.has_key(userID):
+    #Making sure the userID is not in sellers list and not in the user dictionary
+    if (userID not in sellers and not users.has_key(userID)):
         users[userID] = bidderRating(bid)
 
     writeLine(bid_file, [itemID, userID, time, amount])
