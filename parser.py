@@ -1,5 +1,6 @@
 # Jared was Here
 #Ryan was also here
+# Me too (Colin)
 """
 FILE: parser.py
 ------------------
@@ -242,8 +243,7 @@ def parseXml(f):
         writeSeller(item)
         for bid in Bids:
             writeBid(bid, itemId)
-    #writeNonSellers()
-
+    
 
 """
 Loops through each xml files provided on the command line and passes each file
