@@ -1,14 +1,9 @@
--- 7. Find the number of categories that include at
--- least one item with a bid
--- of more than $100.
--- should be 150
-SELECT Count(Category)
-FROM (
-  SELECT DISTINCT Category
-  FROM Categories, (
-    SELECT ItemId
-    FROM Items
-    WHERE CurrentBid > 100
-  ) AS I
-  WHERE Categories.ItemId = I.ItemId
-);
+--) as b
+6	--WHERE SellerId = UserId.b;
+6	--WHERE SellerId = UserId.b;
+7	select count(distinct UserId)
+7	select count(distinct UserId)
+8	from Bids
+8	from Bids B, Items I
+9	where UserId in (
+9	where B.UserId = I.SellerId;
