@@ -3,9 +3,6 @@
 --SELECT Count(UserId)
 --FROM Users
 --WHERE Rating > 1000;
-select count(UserId)
-from Users
-where rating > 1000 and UserId in (
-  select SellerId
-  from Items
-);
+select count(distinct SellerId)
+from Users U, Items I
+where U.UserId = I.SellerId and rating > 1000;

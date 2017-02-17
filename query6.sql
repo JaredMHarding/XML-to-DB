@@ -5,8 +5,5 @@
 --) as b
 --WHERE SellerId = UserId.b;
 select count(distinct UserId)
-from Bids
-where UserId in (
-  select distinct SellerId
-  from Items
-);
+from Bids B, Items I
+where B.UserId = I.SellerId;
