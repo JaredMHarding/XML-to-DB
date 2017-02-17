@@ -8,6 +8,9 @@ FROM (
   WHERE SellerId = UserId
 );
 
+--SELECT Count(SellerId), Count(UserId)
+--From Items, Bids
+--WHERE SellerId = UserId AND UserId = SellerId
 
 --SELECT Count(SellerId)
 --FROM Items, (
