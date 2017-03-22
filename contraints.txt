@@ -1,0 +1,35 @@
+Constraints:
+
+  1. No users can share the same UserId
+    a) We added the keyword UNIQUE to the UserId attribute in Users table.
+    b) create.sql
+
+  2. All Sellers and Bidders must already exist as Users
+    a) We added ON DELETE CASCADE to the foreign keys that reference UserId on the Items and Bids tables
+    b) create.sql
+
+  3. No two Items can share the same ItemId.
+    a) We added UNIQUE keyword to the ItemId attribute in the Items table
+    b) create.sql
+
+  4. Every bid must correspond to an actual Item.
+    a) We added ON DELETE CASCADE to the foreign keys that reference UserId on the Bids table
+    b) create.sql
+
+  5. The items for a given category must all exist.
+    a) We added ON DELETE CASCADE to the foreign key which references the Items primary key
+    b) create.sql
+
+  6. An item cannot belong to a particular category more than once.
+    a) Made the ItemId/Category pair the Primary Key, forcing the ItemId to not be listed in the same Category more than once.
+    b) create.sql
+
+  7. The end time for the auction must always be after the start time.
+    a) We added CHECK (EndTime > BidStartTime) to the Items table for the EndTime attribute.
+    b) create.sql
+
+  8. The current price of an item must always match the amount of the most recent bid for that item.
+    a)
+
+  9. A user may not bid on an item s/he is also selling.
+    a) 

@@ -1,6 +1,6 @@
 #!/bin/sh
 # run python script to create item, user, category, and bid .dat files
-python parser.py ebay_data/items-*.xml
+python parser.py ebay_data/items-1.xml
 
 # sort and removing duplicates
 sort -u item.dat -o item.dat
