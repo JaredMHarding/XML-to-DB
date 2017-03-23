@@ -8,14 +8,18 @@ sort -u user.dat -o user.dat
 sort -u category.dat -o category.dat
 sort -u bid.dat -o bid.dat
 
-# remove duplicates
-#echo "$(uniq item.dat)" > item.dat
-#echo "$(uniq user.dat)" > user.dat
-#echo "$(uniq category.dat)" > category.dat
-#echo "$(uniq bid.dat)" > bid.dat
-
 # create DB
 sqlite3 Auction.db < create.sql
 
 # fill DB
 sqlite3 Auction.db < load.txt
+
+# add triggers
+sqlite3 Auction.db < trigger8_add.sql
+sqlite3 Auction.db < trigger9_add.sql
+sqlite3 Auction.db < trigger11_add.sql
+sqlite3 Auction.db < trigger12_add.sql
+sqlite3 Auction.db < trigger13_add.sql
+sqlite3 Auction.db < trigger14_add.sql
+sqlite3 Auction.db < trigger15_add.sql
+sqlite3 Auction.db < trigger16_add.sql

@@ -17,7 +17,7 @@ Constraints:
     b) create.sql
 
   5. The items for a given category must all exist.
-    a) We added ON DELETE CASCADE to the foreign key which references the Items primary key
+    a) We added ON DELETE CASCADE to the foreign key which references the Items primary key on the Categories table
     b) create.sql
 
   6. An item cannot belong to a particular category more than once.
@@ -29,7 +29,38 @@ Constraints:
     b) create.sql
 
   8. The current price of an item must always match the amount of the most recent bid for that item.
-    a)
+    a) Added a trigger that, when a new bid is added, checks that the bid new amount is larger than the old amount
+       Also added a file to drop the trigger
+    b) trigger8_add.sql, trigger8_drop.sql
 
   9. A user may not bid on an item s/he is also selling.
-    a) 
+    a) Added a trigger that checks if a user tries to bid on their own item, also added a drop trigger
+    b) trigger9_add.sql, trigger9_drop.sql
+
+  10. No auction may have two bids at the exact same time.
+    a) Made the ItemId/BitTime pair unique
+    b) create.sql
+
+  11. No auction may have a bid before its start time or after its end time.
+    a) Added a trigger that checks that a new bid time is between the auction start and end time.
+    b) trigger11_add.sql, trigger11_drop.sql
+
+  12. No user can make a bid of the same amount to the same item more than once.
+    a) Added a trigger that checks that the new bid amount must be greater than the current bid price
+    b) trigger12_add.sql, trigger12_drop.sql
+
+  13. In every auction, the number of bids attribute corresponds to the actual number of bids for that item
+    a) Added a trigger that checked the number of bids corresponding to the item, and updates the bid count
+    b) trigger13_add.sql, trigger13_drop.sql
+
+  14. Any new bid for an item must have a higher amount than any of the previous bids before it.
+    a) Added a trigger that compares the new bid to the largest bid amount for that item.
+    b) trigger14_add.sql, trigger14_drop.sql
+
+  15. All new bids must be place at the time which matches the current time of the database.
+    a) Added a trigger that tests the bids time to the databases current time
+    b) trigger15_add.sql, trigger15_drop.sql
+
+  16. The current time of the database system can only advance forward in time.
+    a) Added a trigger that checks the updated time to make sure that it is greater than the old time
+    b) trigger16_add.sql, trigger16_drop.sql

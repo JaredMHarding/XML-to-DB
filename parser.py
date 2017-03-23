@@ -161,8 +161,9 @@ def writeItem(item):
     started = transformDttm(getElementTextByTagNameNR(item, 'Started'))
     ends = transformDttm(getElementTextByTagNameNR(item, 'Ends'))
     description = getElementTextByTagNameNR(item, 'Description')
+    bid_counts = getElementTextByTagNameNR(item, 'Number_of_Bids')
 
-    writeLine(item_file, [itemID, name, currently, buy_price, first_bid, started, ends, sellerID, description])
+    writeLine(item_file, [itemID, name, currently, buy_price, first_bid, started, ends, sellerID, description, bid_counts])
 
 
 def writeSeller(item):
@@ -243,7 +244,7 @@ def parseXml(f):
         writeSeller(item)
         for bid in Bids:
             writeBid(bid, itemId)
-    
+
 
 """
 Loops through each xml files provided on the command line and passes each file

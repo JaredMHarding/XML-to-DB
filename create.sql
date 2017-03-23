@@ -14,6 +14,7 @@ CREATE TABLE Items (
   EndTime DATETIME CHECK (EndTime > BidStartTime),
   SellerId VARCHAR,
   Description VARCHAR,
+  BidCount INTEGER,
   FOREIGN KEY (SellerId) REFERENCES Users(UserId) ON DELETE CASCADE
 );
 
@@ -36,6 +37,7 @@ CREATE TABLE Bids (
   UserId VARCHAR,
   BidTime DATETIME,
   Amount MONEY,
+  UNIQUE (ItemId, BidTime),
   PRIMARY KEY (UserId, BidTime),
   FOREIGN KEY (ItemId) REFERENCES Items(ItemId) ON DELETE CASCADE,
   FOREIGN KEY (UserId) REFERENCES Users(UserId) ON DELETE CASCADE
