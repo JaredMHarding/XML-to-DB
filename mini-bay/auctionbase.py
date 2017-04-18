@@ -182,16 +182,28 @@ class search:
 
         #Grabbing all the search terms
         itemID = post_params['itemID']
-        category = post_params['category']
-        price = post_params['price']
+        minPrice = post_params['minPrice']
+        maxPrice = post_params['maxPrice']
         category = post_params['category']
         description = post_params['description']
         status = post_params['status']
 
-        if(itemID == '') and (category == '') and (price == '') and (description == '') and (status = ''):
+        if(itemID == '') and (category == '') and (minPrice == '') and (maxPrice == '') and (description == '') and (status == ''):
             return render_template('search.html',
               message = 'You must fill out at least one field!'
             )
+        else:
+            if(itemID == '') and (description == ''):
+                vars = {}
+            else:
+                vars = {
+                    'ItemId': itemID,
+                    'Description': description,
+                }
+
+            result = sqlitedb.getItems(vars, minPrice, maxPrice, status)
+            print("inside search class, result = ",  result)
+            return render_template('search.html', search = result)
 
         #Build query strings based on input
         #Make methods in sqlitedb.py for item searches

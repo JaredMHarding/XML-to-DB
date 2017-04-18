@@ -76,7 +76,7 @@ def getUserById(user_id):
 
 
 
-def getItems(vars = {}, minPrice = '', maxPrice = '', status = 'all'):
+def getItems(vars = {}, minPrice = '', maxPrice = '', status = 'all', category = ''):
   # Create basic query that selects all items
   q = 'select * from Items'
     ############# 'where ends > (select time from currenttime)'
@@ -92,9 +92,9 @@ def getItems(vars = {}, minPrice = '', maxPrice = '', status = 'all'):
   # If min- and/or maxPrice are defined, append those restrictions to query
   if (minPrice != '') or (maxPrice != ''):
     if vars != {}:                          q += ' AND '
-    if (minPrice != ''):                    q += ' currently >= ' + minPrice
+    if (minPrice != ''):                    q += ' CurrentBid >= ' + minPrice
     if (minPrice != '' and maxPrice != ''): q += ' AND '
-    if (maxPrice != ''):                    q += ' currently <= ' + maxPrice
+    if (maxPrice != ''):                    q += ' CurrentBid <= ' + maxPrice
 
   if (status != 'all'):
     if (vars != {}) or (minPrice != '') or (maxPrice != ''):
@@ -107,6 +107,7 @@ def getItems(vars = {}, minPrice = '', maxPrice = '', status = 'all'):
       q += 'BidStartTime > (select Now from CurrentTime)'
 
   # Return result of the query
+  print("inside getItems(), q = " + q)
   return query(q)
 
 
