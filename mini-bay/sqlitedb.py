@@ -76,12 +76,12 @@ def getUserById(user_id):
 
 
 
-def getItems(vars = {}, minPrice = '', maxPrice = '', status = 'all', category = ''):
+def getItems(vars = {}, minPrice = '', maxPrice = '', status = 'all', category = '', description = ''):
   # Create basic query that selects all items
-  q = 'select * from Items'
+  q = 'select Items.ItemId, Items.Name, Items.CurrentBid, Items.EndTime from Items, Categories'
     ############# 'where ends > (select time from currenttime)'
 
-  if (vars != {}) or (minPrice != '') or (maxPrice != '') or (status != 'all'):
+  if (vars != {}) or (minPrice != '') or (maxPrice != '') or (status != 'all') or (category != '') or (description != ''):
     q += ' where '
 
   # If params for the search are indicated, add them to
@@ -106,8 +106,22 @@ def getItems(vars = {}, minPrice = '', maxPrice = '', status = 'all', category =
     if status == 'notStarted':
       q += 'BidStartTime > (select Now from CurrentTime)'
 
+  if (category != ''):
+      if (vars != {}) or (minPrice != '') or (maxPrice != '') or (status != 'all'):
+        q += ' AND '
+      q += 'Categories.Category like "%%%s%%"' % (category)
+      q += ' AND '
+      q += 'Items.ItemId = Categories.ItemId'
+
+
+  if (description != ''):
+      if (vars != {}) or (minPrice != '') or (maxPrice != '') or (status != 'all') or (category != ''):
+          q += ' AND '
+      q += 'description like "%%%s%%"' % (description)
+  q += ' GROUP BY Items.ItemId'
+
   # Return result of the query
-  print("inside getItems(), q = " + q)
+  print("inside getItems(), q = ", q)
   return query(q)
 
 
@@ -123,8 +137,8 @@ def getWinnerId(itemID):
   q  = 'select UserId from Bids '
   q += 'where ItemId = $ItemId '
   q += 'and Amount = ('
-  q +=   'select max(Amount) from Bids '
-  q +=   'where ItemId = $ItemId'
+  q +=  'select max(Amount) from Bids '
+  q +=  'where ItemId = $ItemId'
   q += ')'
 
   result = query(q, { 'ItemId': itemID })

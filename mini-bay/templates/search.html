@@ -41,21 +41,21 @@
 <div class="alert alert-danger">Output:</div>
 <table class="table table-responsive">
 <thead>
-<TR>
+<tr>
     <th>ItemId</th>
     <th>Name</th>
     <th>Current Price</th>
     <th>Ending Time</th>
-</TR>
+</tr>
 </thead>
 <tbody>
 {%for item in search%}
-<TR>
-    <TD> {{item.ItemId}} </TD>
-    <TD> {{item.Name}} </TD>
-    <TD> {{item.CurrentBid}} </TD>
-    <TD> {{item.EndTime}} </TD>
-</TR>
+<tr>
+    <td> <a href="http://localhost:8080/item_details?id={{item.ItemId}}" target="_blank"> {{item.ItemId}} </td>
+    <td> {{item.Name}} </td>
+    <td> {{item.CurrentBid}} </td>
+    <td> {{item.EndTime}} </td>
+</tr>
 </tbody>
 {% endfor %}
 </table>

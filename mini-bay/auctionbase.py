@@ -56,6 +56,7 @@ urls = (
   '/selecttime', 'select_time',
   '/add_bid', 'add_bid',
   '/search', 'search',
+  '/item_details', 'item_details'
 )
 
 
@@ -193,20 +194,33 @@ class search:
               message = 'You must fill out at least one field!'
             )
         else:
-            if(itemID == '') and (description == ''):
-                vars = {}
-            else:
-                vars = {
-                    'ItemId': itemID,
-                    'Description': description,
-                }
+            vars = {}
+            if(itemID != ''):
+                vars['Items.ItemId'] = itemID
 
-            result = sqlitedb.getItems(vars, minPrice, maxPrice, status)
-            print("inside search class, result = ",  result)
+            result = sqlitedb.getItems(vars, minPrice, maxPrice, status, category, description)
+            print("inside search class, result = ", result)
             return render_template('search.html', search = result)
 
         #Build query strings based on input
         #Make methods in sqlitedb.py for item searches
+
+
+class item_details:
+    def GET(self):
+        item = web.input(id = 'web')
+        print(web.websafe(item.id))
+        itemId = web.websafe(item.id)
+
+        q = "select * from Items where ItemId = %s" % (itemId)
+        r = "select Category from Categories where ItemId = %s" % (itemId)
+        s = "select UserId, Amount, BidTime from Bids where ItemId = %s" % (itemId)
+
+        Q = sqlitedb.query(q)
+        R = sqlitedb.query(r)
+        S = sqlitedb.query(s)
+
+        return render_template('item_details.html', Item = Q, Category = R, Bid = S)
 
 ###########################################################################################
 ##########################DO NOT CHANGE ANYTHING BELOW THIS LINE!##########################

@@ -1,0 +1,17 @@
+{% for i in Item %}
+<p>ItemID:      {{i.ItemId}} <br/>
+   Item Name:   {{i.Name}}    <br/>
+   Current Bid: {{i.CurrentBid}}<br/>
+   But It Now:  {{i.BuyItNow}}<br/>
+   Start:       {{i.BidStartTime}}<br/>
+   End:         {{i.EndTime}}<br/>
+   SellerID:    {{i.SellerId}}<br/>
+   Description: {{i.Description}}<br/>
+   Bid Count:   {{i.BidCount}}</p>
+{% endfor %}
+
+{% for i in Category %}
+{% endfor %}
+
+{% for i in Bid %}
+{% endfor %}
