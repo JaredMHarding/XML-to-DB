@@ -56,7 +56,8 @@ urls = (
   '/selecttime', 'select_time',
   '/add_bid', 'add_bid',
   '/search', 'search',
-  '/item_details', 'item_details'
+  '/item_details', 'item_details',
+  '/add_user', 'add_user'
 )
 
 
@@ -208,19 +209,44 @@ class search:
 
 class item_details:
     def GET(self):
-        item = web.input(id = 'web')
-        print(web.websafe(item.id))
-        itemId = web.websafe(item.id)
+        itemID = web.input(id='web')
+        details = web.websafe(itemID.id)
 
-        q = "select * from Items where ItemId = %s" % (itemId)
-        r = "select Category from Categories where ItemId = %s" % (itemId)
-        s = "select UserId, Amount, BidTime from Bids where ItemId = %s" % (itemId)
+        q = "select * from Items where ItemId = %s" % (details)
+        r = "select Category from Categories where ItemId = %s" % (details)
+        s = "select UserId, Amount, BidTime from Bids where ItemId = %s" % (details)
 
         Q = sqlitedb.query(q)
         R = sqlitedb.query(r)
         S = sqlitedb.query(s)
 
-        return render_template('item_details.html', Item = Q, Category = R, Bid = S)
+        return render_template('item_details.html', Item = Q, Cat = R, Bid = S)
+
+class add_user:
+    def GET(self):
+        return render_template('add_user.html')
+
+# A POST request to the URL '/add_bid'
+    def POST(self):
+        post_params = web.input()
+        userID = post_params['userID']
+        location = post_params['location']
+        country = post_params['country']
+
+      ### Many ways to fail... #######################################
+
+      # (1) All fields must be filled
+        if (userID == '') or (location == '') or (country == ''):
+            return render_template('add_user.html',
+                message = 'You must fill out every field')
+
+      # Add bid to Bid table in db
+        sqlitedb.addUser(userID, location, country)
+
+        return render_template(
+            'add_user.html',
+            message = 'Success! You\'ve just added User ' + userID)
+
 
 ###########################################################################################
 ##########################DO NOT CHANGE ANYTHING BELOW THIS LINE!##########################

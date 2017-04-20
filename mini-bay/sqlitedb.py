@@ -133,6 +133,10 @@ def updateItemEndTime(itemID, new_end_time):
 def addBid(itemID, price, userID, current_time):
   db.insert('Bids', ItemId = itemID, Amount = price, UserId = userID, BidTime = current_time)
 
+def addUser(userID, location, country):
+  db.insert('Users', UserId = userID, Location = location, Country = country)
+
+
 def getWinnerId(itemID):
   q  = 'select UserId from Bids '
   q += 'where ItemId = $ItemId '

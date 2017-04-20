@@ -1,17 +1,49 @@
-{% for i in Item %}
-<p>ItemID:      {{i.ItemId}} <br/>
-   Item Name:   {{i.Name}}    <br/>
-   Current Bid: {{i.CurrentBid}}<br/>
-   But It Now:  {{i.BuyItNow}}<br/>
-   Start:       {{i.BidStartTime}}<br/>
-   End:         {{i.EndTime}}<br/>
-   SellerID:    {{i.SellerId}}<br/>
-   Description: {{i.Description}}<br/>
-   Bid Count:   {{i.BidCount}}</p>
-{% endfor %}
+{% block content %}
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<head>
+    <title>AuctionBase</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+</head>
 
-{% for i in Category %}
-{% endfor %}
+<body>
 
-{% for i in Bid %}
-{% endfor %}
+ <div>
+
+   <h2>
+     Items Details:
+   </h2>
+   {% for i in Item %}
+   <div> Item ID: {{i.ItemId}} <br/>
+       Item Name: {{i.Name}} <br/>
+       Current Price: {{i.CurrentBid}} <br/>
+       Buy Price: {{i.BuyItNow}} <br/>
+       First Bid: {{i.FirstBid}} <br/>
+       Number of Bids: {{i.BidCount}} <br/>
+       Start Date: {{i.BidStartTime}} <br/>
+       End Date: {{i.EndTime}} <br/>
+       Seller ID: {{i.SellerId}} <br/>
+       Description: {{i.Description}} <br/>
+     </div>
+   {% endfor %}
+
+    <h2>Categories: </h2>
+      <br/>
+   <div>{% for i in Cat %}
+      {{i.Category}} </div>
+   {% endfor %}
+
+   <h2>
+     List of Bids: <br/>
+   </h2>
+   <div>{% for i in Bid %}
+       {{i.UserId}} <br/>
+       $ {{i.Amount}} <br/>
+       {{i.BidTime}} <br/>
+     </div>
+   {% endfor %}
+
+ </div>
+</body>
+{% endblock %}
